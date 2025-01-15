@@ -12,6 +12,8 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
+
+
 @PostMapping("/departments")
     public Department saveDepartment(@RequestBody Department department) {
     return departmentService.saveDepartment(department);
@@ -29,9 +31,12 @@ public String deleteDepartmentById(@PathVariable("id") long departmentId){
     departmentService.deleteDepartmentById(departmentId);
     return "Department deleted successfully";
 }
-//@PutMapping("/departments/{id}")
-//    public String updateDepartment(@PathVariable("id") Long departmentId, @RequestBody Department department){
-//return departmentService.updateDepartment(departmentId,department);
-//}
-
+@PutMapping("/departments/{id}")
+    public Department updateDepartment(@PathVariable("id") Long departmentId, @RequestBody Department department){
+return departmentService.updateDepartment(departmentId,department);
+}
+@GetMapping("/departments/name/{name}")
+public Department fetchDepartmentByName(@PathVariable("name") String departmentName) {
+    return departmentService.fetchDepartmentByName(departmentName);
+}
 }

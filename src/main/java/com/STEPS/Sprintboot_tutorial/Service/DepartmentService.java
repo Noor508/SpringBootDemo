@@ -1,15 +1,24 @@
 package com.STEPS.Sprintboot_tutorial.Service;
 
-
 import com.STEPS.Sprintboot_tutorial.Entity.Department;
 
-import java.awt.*;
 import java.util.List;
 
 public interface DepartmentService {
-    public Department saveDepartment(Department department);
-    public List<Department> fetchDepartmentList();
-    public Department fetchDepartmentById(long departmentId);
-    public  void deleteDepartmentById(long departmentId);
-//    public Department updateDepartment(Department department);
+
+    Department fetchDepartmentById(Long departmentId); // Use Long for consistency with the Entity
+
+    Department fetchDepartmentById(long departmentId);
+
+    Department saveDepartment(Department department);
+
+    void deleteDepartmentById(Long departmentId); // Consistent with fetchDepartmentById
+
+    void deleteDepartmentById(long departmentId);
+
+    List<Department> fetchDepartmentList();
+
+    Department updateDepartment(Long departmentId, Department department);
+
+    Department fetchDepartmentByName(String departmentName);
 }

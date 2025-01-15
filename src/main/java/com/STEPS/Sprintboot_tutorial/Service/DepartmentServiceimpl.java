@@ -6,13 +6,18 @@ import com.STEPS.Sprintboot_tutorial.Repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DepartmentServiceimpl implements DepartmentService {
-@Autowired
-   private DepartmentRepository departmentRepository;
+
+    private final DepartmentRepository departmentRepository;
+
+    @Autowired
+    public DepartmentServiceimpl(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
     @Override
     public void deleteDepartmentById(long departmentId) {
@@ -25,8 +30,13 @@ public class DepartmentServiceimpl implements DepartmentService {
     }
 
     @Override
+    public Department fetchDepartmentById(Long departmentId)  {
+        return departmentRepository.findById(departmentId).orElse(null);
+    }
+
+    @Override
     public Department fetchDepartmentById(long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+        return null;
     }
 
     @Override
@@ -34,14 +44,32 @@ public class DepartmentServiceimpl implements DepartmentService {
         return departmentRepository.save(department);
     }
 
-//    @Override
-//    public Department updateDepartment(Long departmentId, Department department) {
-//        Department depDB = departmentRepository.findById(departmentId).get();
-//
-//
-//        if(Object.nonNull(department.getDepartmentId())&&
-//                !"".equalsIgnoreCase(department.getDepartmentName())){
-//            depDB.setDepartmentName(department.getDepartmentName());
-//        }
-//    }
+    @Override
+    public void deleteDepartmentById(Long departmentId) {
+
+    }
+
+    @Override
+    public Department updateDepartment(Long departmentId, Department department) {
+        Department depDB = departmentRepository.findById(departmentId).orElseThrow(() -> new RuntimeException("Department not found"));
+
+        if (department.getDepartmentName() != null && !department.getDepartmentName().isEmpty()) {
+            depDB.setDepartmentName(department.getDepartmentName());
+        }
+
+        if (department.getDepartmentCode() != null && !department.getDepartmentCode().isEmpty()) {
+            depDB.setDepartmentCode(department.getDepartmentCode());
+        }
+
+        if (department.getDepartmentAddress() != null && !department.getDepartmentAddress().isEmpty()) {
+            depDB.setDepartmentAddress(department.getDepartmentAddress());
+        }
+
+        return departmentRepository.save(depDB);
+    }
+
+    @Override
+    public Department fetchDepartmentByName(String departmentName) {
+        return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+    }
 }

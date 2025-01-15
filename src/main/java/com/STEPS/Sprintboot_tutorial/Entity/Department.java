@@ -10,6 +10,7 @@ public class Department {
 
     @Id
     @GeneratedValue
+
     private Long departmentId;
     private String departmentName;
     private String departmentAddress;
@@ -48,8 +49,7 @@ public class Department {
         this.departmentCode = departmentCode;
     }
 
-    public Department(Long departmentId, String departmentName, String departmentAddress, String departmentCode) {
-        this.departmentId = departmentId;
+    public Department(String departmentName, String departmentAddress, String departmentCode) {
         this.departmentName = departmentName;
         this.departmentAddress = departmentAddress;
         this.departmentCode = departmentCode;
