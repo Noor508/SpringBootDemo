@@ -12,12 +12,7 @@ import java.util.Objects;
 @Service
 public class DepartmentServiceimpl implements DepartmentService {
 
-    private final DepartmentRepository departmentRepository;
-
-    @Autowired
-    public DepartmentServiceimpl(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-    }
+   private DepartmentRepository departmentRepository;
 
     @Override
     public void deleteDepartmentById(long departmentId) {
@@ -31,17 +26,7 @@ public class DepartmentServiceimpl implements DepartmentService {
 
     @Override
     public Department fetchDepartmentById(Long departmentId)  {
-        return departmentRepository.findById(departmentId).orElse(null);
-    }
-
-    @Override
-    public Department fetchDepartmentById(long departmentId) {
         return null;
-    }
-
-    @Override
-    public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
     }
 
     @Override
@@ -50,18 +35,32 @@ public class DepartmentServiceimpl implements DepartmentService {
     }
 
     @Override
-    public Department updateDepartment(Long departmentId, Department department) {
-        Department depDB = departmentRepository.findById(departmentId).orElseThrow(() -> new RuntimeException("Department not found"));
+    public Department fetchDepartmentById(long departmentId) {
+        return departmentRepository.findById(departmentId).get();
+    }
 
-        if (department.getDepartmentName() != null && !department.getDepartmentName().isEmpty()) {
+    @Override
+    public Department saveDepartment(Department department) {
+        return departmentRepository.save(department);
+    }
+
+
+    @Override
+    public Department updateDepartment(Long departmentId, Department department) {
+        Department depDB = departmentRepository.findById(departmentId).get();
+
+        if(Objects.nonNull(department.getDepartmentName()) &&
+                !"".equalsIgnoreCase(department.getDepartmentName())) {
             depDB.setDepartmentName(department.getDepartmentName());
         }
 
-        if (department.getDepartmentCode() != null && !department.getDepartmentCode().isEmpty()) {
+        if(Objects.nonNull(department.getDepartmentCode()) &&
+                !"".equalsIgnoreCase(department.getDepartmentCode())) {
             depDB.setDepartmentCode(department.getDepartmentCode());
         }
 
-        if (department.getDepartmentAddress() != null && !department.getDepartmentAddress().isEmpty()) {
+        if(Objects.nonNull(department.getDepartmentAddress()) &&
+                !"".equalsIgnoreCase(department.getDepartmentAddress())) {
             depDB.setDepartmentAddress(department.getDepartmentAddress());
         }
 

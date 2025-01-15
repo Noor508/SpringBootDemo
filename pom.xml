@@ -25,23 +25,33 @@
 	</properties>
 
 	<dependencies>
+		<!-- Jakarta Servlet API (provided scope) -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Jakarta Persistence API -->
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
 			<version>2.2.3</version>
-
 		</dependency>
 
-		<!-- Spring Web Starter for RESTful APIs -->
+		<!-- Spring Boot Starter Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+
+
+
+		<!-- Spring Boot DevTools for hot reload (useful during development) -->
+
+
+		<!-- Spring Boot Starter Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -53,24 +63,40 @@
 			</exclusions>
 		</dependency>
 
-
 		<!-- H2 Database for In-Memory Testing -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>2.2.220</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+		<!-- Hibernate Core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.0.7.Final</version>
+		</dependency>
+
+		<!-- SQL Server JDBC Driver -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>11.2.0.jre8</version> <!-- Use the appropriate version for your Java version -->
+			<version>11.2.0.jre8</version>
 		</dependency>
 
+		<!-- HSQLDB Database for In-Memory -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
+			<version>2.7.1</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<!-- Spring Boot Starter for Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -83,6 +109,9 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- Custom Project Dependency -->
+
 	</dependencies>
 
 	<build>
@@ -105,5 +134,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
