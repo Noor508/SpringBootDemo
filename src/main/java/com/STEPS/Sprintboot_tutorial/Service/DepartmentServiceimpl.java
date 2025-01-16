@@ -3,15 +3,18 @@ package com.STEPS.Sprintboot_tutorial.Service;
 
 import com.STEPS.Sprintboot_tutorial.Entity.Department;
 import com.STEPS.Sprintboot_tutorial.Repository.DepartmentRepository;
+import com.STEPS.Sprintboot_tutorial.error.DepartmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceimpl implements DepartmentService {
-@Autowired
+
+    @Autowired
    private DepartmentRepository departmentRepository;
 
     @Override
@@ -25,8 +28,22 @@ public class DepartmentServiceimpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(long departmentId) {
-        return departmentRepository.findById(departmentId).get();
+    public Department fetchDepartmentById(Long departmentId)  {
+        return null; 
+    }
+
+    @Override
+    public void deleteDepartmentById(Long departmentId) {
+
+    }
+
+    @Override
+    public Department fetchDepartmentById(long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+        if(department.isPresent()){
+            throw new DepartmentNotFoundException("Department not found");
+        }
+        return department.get();
     }
 
     @Override
@@ -34,14 +51,31 @@ public class DepartmentServiceimpl implements DepartmentService {
         return departmentRepository.save(department);
     }
 
-//    @Override
-//    public Department updateDepartment(Long departmentId, Department department) {
-//        Department depDB = departmentRepository.findById(departmentId).get();
-//
-//
-//        if(Object.nonNull(department.getDepartmentId())&&
-//                !"".equalsIgnoreCase(department.getDepartmentName())){
-//            depDB.setDepartmentName(department.getDepartmentName());
-//        }
-//    }
+
+    @Override
+    public Department updateDepartment(Long departmentId, Department department) {
+        Department depDB = departmentRepository.findById(departmentId).get();
+
+        if(Objects.nonNull(department.getDepartmentName()) &&
+                !"".equalsIgnoreCase(department.getDepartmentName())) {
+            depDB.setDepartmentName(department.getDepartmentName());
+        }
+
+        if(Objects.nonNull(department.getDepartmentCode()) &&
+                !"".equalsIgnoreCase(department.getDepartmentCode())) {
+            depDB.setDepartmentCode(department.getDepartmentCode());
+        }
+
+        if(Objects.nonNull(department.getDepartmentAddress()) &&
+                !"".equalsIgnoreCase(department.getDepartmentAddress())) {
+            depDB.setDepartmentAddress(department.getDepartmentAddress());
+        }
+
+        return departmentRepository.save(depDB);
+    }
+
+    @Override
+    public Department fetchDepartmentByName(String departmentName) {
+        return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+    }
 }

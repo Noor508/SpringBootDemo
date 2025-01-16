@@ -3,14 +3,18 @@ package com.STEPS.Sprintboot_tutorial.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Department {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long departmentId;
+    @NotBlank (message = "Please Add departmentName")
     private String departmentName;
     private String departmentAddress;
     private String departmentCode;
@@ -48,8 +52,7 @@ public class Department {
         this.departmentCode = departmentCode;
     }
 
-    public Department(Long departmentId, String departmentName, String departmentAddress, String departmentCode) {
-        this.departmentId = departmentId;
+    public Department(String departmentName, String departmentAddress, String departmentCode) {
         this.departmentName = departmentName;
         this.departmentAddress = departmentAddress;
         this.departmentCode = departmentCode;
